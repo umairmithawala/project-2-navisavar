@@ -1,0 +1,129 @@
+<IfModule mod_rewrite.c>
+Options +FollowSymlinks
+# Enable Rewriting
+RewriteEngine on
+RewriteBase /
+
+#You can change a default index file of directory with:
+DirectoryIndex index.html index.php
+
+# You can redirect your users to an error page with:
+ErrorDocument 400 /utility/400.php
+ErrorDocument 401 /utility/401.php
+ErrorDocument 403 /utility/403.php
+ErrorDocument 404 /utility/404.php
+ErrorDocument 500 /utility/500.php
+ErrorDocument 502 /utility/502.php
+ErrorDocument 504 /utility/504.php
+
+#Remove the Need for www in Your URL
+RewriteCond %{HTTP_HOST} ^www.navisavar.com [NC]
+RewriteRule ^(.*)$ https://navisavar.com/$1 [L,R=301]
+
+# Set the Time Zone for Your Server
+# SetEnv TZ Europe/London
+
+# Control Access to Files
+# deny from all
+
+
+# more specific and ban a specific IP address
+# order allow,deny
+# deny from XXX.XXX.XXX.XXX
+# allow from all
+
+
+
+# 301 Permanent Redirects
+# Redirect 301 /olddirectory/file.html http://www.domainname.com/newdirectory/file.html
+
+
+# Set the Email Address for the Server Administrator
+ServerSignature EMail
+SetEnv SERVER_ADMIN anzarkhan.rain@gmail.com
+
+
+# Detecting Tablets and Redirecting
+# RewriteCond %{HTTP_USER_AGENT} ^.*iPad.*$
+# RewriteRule ^(.*)$ http://yourdomain.com/folderfortablets [R=301]
+# RewriteCond %{HTTP_USER_AGENT} ^.*Android.*$
+# RewriteRule ^(.*)$ http://yourdomain.com/folderfortablets [R=301]
+
+
+
+# Link Protection
+# RewriteCond %{HTTP_REFERER} !^$
+# RewriteCond %{HTTP_REFERER} !^http://(www.)?vyaparmitras.com/ [nc]
+# RewriteRule .*.(gif|jpg|png|pdf)$ http://vyaparmitras.com/img/hotlink_f_o.png [nc]
+
+
+#url git rewriting
+#RewriteRule ^business/([A-Za-z0-9-]+)$ business.php?id=$1 [NC]
+# RewriteRule ^([A-Za-z0-9-]+).html$ business.php?id=$1 [NC]
+# RewriteRule ^([A-Za-z0-9-]+)$ business.php?id=$1 [NC]
+# RewriteRule ^([A-Za-z0-9-]+)?/$ business.php?id=$1 [NC]
+
+RewriteRule ^blog/([A-Za-z0-9-]+)$ single-blog-view.php?blog_link=$1 [NC]
+RewriteRule ^blog/([A-Za-z0-9-]+)?/$ single-blog-view.php?blog_link=$1 [NC]
+
+RewriteRule ^category/([A-Za-z0-9-]+)$ category-blog-view.php?category_link=$1 [NC]
+RewriteRule ^category/([A-Za-z0-9-]+)?/$ category-blog-view.php?category_link=$1 [NC]
+
+RewriteRule ^category/([A-Za-z0-9-]+)/([0-9]+)$ category-blog-view.php?category_link=$1&page=$2 [NC]
+RewriteRule ^category/([A-Za-z0-9-]+)/([0-9]+)?/$ category-blog-view.php?category_link=$1&page=$2 [NC]
+
+RewriteRule ^recent-blogs/([0-9]+)$ recent-blogs.php?page=$1 [NC]
+RewriteRule ^recent-blogs/([0-9]+)?/$ recent-blogs-view.php?page=$1 [NC]
+
+#RewriteRule ^search/(.*)$ search.php?q=$1 [NC]
+#RewriteRule ^search/(.*)?/$ search.php?q=$1 [NC]
+
+#Redirect Browser to https
+RewriteCond %{HTTPS} !on
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+
+# Activate SSIAddType text/html .html
+# AddType text/html .shtml
+# AddHandler server-parsed .html
+# AddHandler server-parsed .shtml
+# AddHandler server-parsed .htm
+
+
+# Disable or Enable Directory browsing
+# disable directory browsing
+Options All -Indexes
+# enable directory browsing
+# Options All +Indexes
+
+
+# Change the Charset and Language headers
+AddDefaultCharset UTF-8
+DefaultLanguage en-GB
+
+
+# Block Unwanted Referrals
+# RewriteCond %{HTTP_REFERER} website1.com [NC,OR]
+# RewriteCond %{HTTP_REFERER} website2.com [NC,OR]
+# RewriteRule .* - [F]
+
+
+# Block Unwanted User Agents
+# SetEnvIfNoCase ^User-Agent$ .*(bot1|bot2|bot3|bot4|bot5|bot6|) HTTP_SAFE_BADBOT
+# SetEnvIfNoCase ^User-Agent$ .*(bot1|bot2|bot3|bot4|bot5|bot6|) HTTP_SAFE_BADBOT
+# Deny from env=HTTP_SAFE_BADBOT
+
+
+# disabling accessing of a uploaded documents
+# RedirectMatch 403 ^/admin/uploads/.*$
+
+
+# remove .php extension from the end of the URL
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule !.*\.php$ %{REQUEST_FILENAME}.php [QSA,L]
+
+
+#preventing sitemap to index
+#<Files ~ "^(sitemap|img-sitemap)\\.xml$">
+#Header set X-Robots-Tag "noindex"
+#</Files>
+</IfModule>

@@ -1,0 +1,10 @@
+User-agent: Googlebot
+Disallow: /app/
+Allow: /
+
+
+User-agent: *
+Disallow: /app/
+Allow: /
+
+Sitemap: http://www.navisavar.com/sitemap.xml
